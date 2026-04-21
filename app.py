@@ -28,7 +28,7 @@ if st.session_state["favorites"]:
 else:
     st.info("No favorites yet")
 
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 def explain_recipe(recipe, user_ingredients):
     prompt = f"""
@@ -41,14 +41,14 @@ def explain_recipe(recipe, user_ingredients):
     """
 
     response = client.chat.completions.create(
-        model="gpt-4.1-mini",
+        model="gpt-4o-mini",
         messages=[{"role": "user", "content": prompt}]
     )
 
     return response.choices[0].message.content
 
 
-# UI
+
 st.set_page_config(page_title="SmartChef AI", page_icon="👩‍🍳")
 
 st.title("👩‍🍳 SmartChef AI")
