@@ -1,5 +1,7 @@
 import streamlit as st
 
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+
 st.title("👩‍🍳 SmartChef AI")
 
 st.write("Find the best recipe based on your ingredients and budget")
