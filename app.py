@@ -2,6 +2,9 @@ import streamlit as st
 from openai import OpenAI
 import os
 
+if "favorites" not in st.session_state:
+    st.session_state["favorites"] = []
+
 st.set_page_config(
     page_title="SmartChef AI",
     page_icon="👩‍🍳",
@@ -12,17 +15,18 @@ st.title("👩‍🍳 SmartChef")
 st.caption("Smart cooking based on your ingredients, budget, and AI")
 st.divider()
 
-st.subheader("❤️ Your Favorites")
+# Initialize
+if "favorites" not in st.session_state:
+    st.session_state["favorites"] = []
 
-if st.session_state.favorites:
-    for fav in st.session_state.favorites:
+# Use it
+st.subheader("❤️ Favorites")
+
+if st.session_state["favorites"]:
+    for fav in st.session_state["favorites"]:
         st.write(f"{fav['name']} 💰 ${fav['price']}")
 else:
     st.info("No favorites yet")
-
-# Session state
-if "favorites" not in st.session_state:
-    st.session_state.favorites = []
 
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
